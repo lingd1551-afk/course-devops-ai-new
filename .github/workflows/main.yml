@@ -29,6 +29,13 @@ jobs:
       - name: Build Docker image
         run: docker build -t rag-app:ci .
 
+      - name: Check Railway token presence
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+        run: |
+          test -n "$RAILWAY_TOKEN" || (echo "RAILWAY_TOKEN is empty" && exit 1)
+          echo "RAILWAY_TOKEN length: ${#RAILWAY_TOKEN}"
+
       - name: Deploy to Railway
         uses: bervProject/railway-deploy@main
         env:
