@@ -20,7 +20,6 @@ const passwordInput = document.getElementById('password');
 const messages = document.getElementById('messages');
 const questionInput = document.getElementById('question');
 const sendBtn = document.getElementById('sendBtn');
-const themeToggle = document.getElementById('themeToggle');
 const nowTs = () => new Date().toLocaleTimeString();
 const renderUserMsg = (text, ts) => {
   const wrap = document.createElement('div');
@@ -89,17 +88,7 @@ const typeText = async (el, text) => {
     await new Promise(r => setTimeout(r, 8));
   }
 };
-const setTheme = (name) => {
-  if (name === 'light') document.documentElement.classList.add('dark');
-  else document.documentElement.classList.remove('dark');
-  localStorage.setItem('theme', name);
-};
-const currentTheme = localStorage.getItem('theme') || 'dark';
-setTheme(currentTheme);
-themeToggle.addEventListener('click', () => {
-  const next = (localStorage.getItem('theme') || 'dark') === 'dark' ? 'light' : 'dark';
-  setTheme(next);
-});
+
 
 const saveChat = async (question, answer, error) => {
   if (GUEST || !auth || !auth.currentUser || !db) return;
